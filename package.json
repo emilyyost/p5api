@@ -1,0 +1,14 @@
+{
+  "name": "p5api",
+  "version": "1.0.0",
+  "description": "Create p5 with api request.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "KEG",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^4.8.0"
+  }
+}
