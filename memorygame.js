@@ -5,6 +5,7 @@ var allImagesRandomized = false;
 var previousImgIndex = -1;
 var alertMessage = "";
 var alertMessageComing = false;
+var hideMismatchIndexes = [];
 const IMAGE_WIDTH = 50;
 const IMAGE_HEIGHT = 50;
 const ROWS = 5;
@@ -24,9 +25,14 @@ function mouseClicked() {
     imgsReveal[imgIndex] = true; 
     if (previousImgIndex > -1) {
       if (doTheImagesMatch(imgIndex, previousImgIndex)) {
-        alertMessage = "They Match!";  
+        if (allMatched(imgsReveal)){
+          alertMessage = "You win! Play again?";
+        } else {
+          alertMessage = "They Match!";  
+        }
       } else {
         alertMessage = "They Don't Match!!"; 
+        hideMismatchIndexes = [previousImgIndex, imgIndex];
       } 
       imgIndex = -1;
     } 
@@ -36,6 +42,15 @@ function mouseClicked() {
   }
   // prevent default
   return false;
+}
+
+function allMatched(imgsReveal){
+  for (var i = 0; i < imgsReveal.length; i++){
+    if (!imgsReveal[i]) {
+      return false;
+    } 
+  } 
+  return true; 
 }
 
 function doTheImagesMatch(imgIndex, previousImgIndex) {
@@ -87,9 +102,31 @@ function processAlerts() {
   if (alertMessage != "" && !alertMessageComing) {
     alertMessageComing = true;
   } else if (alertMessage != "" && alertMessageComing){
-    alert(alertMessage);
+    if (alertMessage.indexOf("win") == -1) {
+      alert(alertMessage);
+    } else {
+      if (confirm(alertMessage)){
+        console.log("confirm return to true");
+        imgArray = randomizeImages(imgArray);
+        setAllToFalse(imgsReveal);
+      } else {
+        alert("Thanks for playing!");
+      } 
+    }
+    
     alertMessage = "";
     alertMessageComing = false;
+    if (hideMismatchIndexes.length > 0) {
+      imgsReveal[hideMismatchIndexes[0]] = false;
+      imgsReveal[hideMismatchIndexes[1]] = false;
+      hideMismatchIndexes = []; 
+    }
+  }
+}
+
+function setAllToFalse (arr) {
+  for (var i = 0; i < arr.length; i++){
+    arr[i] = false;
   }
 }
 

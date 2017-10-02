@@ -12,7 +12,7 @@ x When hidden image is clicked, it displays image and keeps it displayed
 x When second hidden image clicked
   x if matched leave flipped over
   x else if clicks exposed image, ingore click
-  else hide images after alert msg "no match"
-    if all images are exposed, alert "you win", "play again?"
+  x else hide images after alert msg "no match"
+    x if all images are exposed, alert "you win", "play again?"
       if yes, redo setup
       else "thanks for playing!" 
